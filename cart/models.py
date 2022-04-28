@@ -23,6 +23,10 @@ class CartProduct(models.Model):
     product = models.ForeignKey(Product, verbose_name="Продукт", on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name="Количество", default=1)
     overall_price = models.DecimalField(verbose_name="Цена товара", max_digits=9, decimal_places=2)
+    
+    def save(self, *args, **kwargs):
+        self.overall_price = self.product.price * self.quantity
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"В корзине продукт {self.product.name}"

@@ -14,7 +14,8 @@
             <p>Цена: {{ product.price }} BYN</p>
             <p>Описание: {{ product.description }}</p>
             <form class="form-inline">
-                <button type="button" class="btn btn-outline-success">Добавить в корзину</button>
+                <a href="{% url 'add_to_cart' slug=product.slug %}"><button type="button"
+                    class="btn btn-outline-success">Добавить в корзину</button></a>
             </form>
         </div>
     </div>
