@@ -37,9 +37,15 @@
             <button class="btn btn-outline-dark pr-2" type="submit">Найти</button>
         </form>
         <ul class="navbar-nav">
+        {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'cart_detail' %}">Корзина</a>
             </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="">Войти</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

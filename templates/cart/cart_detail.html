@@ -28,6 +28,12 @@
                 <td>{{ cart_product.overall_price }} BYN</td>
             </tr>
             {% endfor %}
+            <tfoot>
+                <tr>
+                     <td><h5 class="text-white mb-3">Общая цена: {{ cart.overall_price }} BYN</h5></td>
+                     <td><h5 class="text-white mb-3">Количество товаров: {{ cart.products.count }}</h5></td>
+                </tr>
+            </tfoot>
         </tbody>
     </table>
 </div>
