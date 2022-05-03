@@ -3,18 +3,17 @@ from django.urls import reverse
 
 
 class Category(models.Model):
-
     name = models.CharField(verbose_name='Имя категории', max_length=255)
     slug = models.SlugField(unique=True)
-    
+
     class Meta:
         verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
-        return reverse('category_detail', kwargs={'slug': self.slug})
+        return reverse('products:category_detail', kwargs={'slug': self.slug})
 
 
 class Product(models.Model):
@@ -25,9 +24,9 @@ class Product(models.Model):
     image = models.ImageField(verbose_name="Изображение товара")
     description = models.TextField(verbose_name="Описание товара")
     price = models.DecimalField(verbose_name="Цена товара", max_digits=9, decimal_places=2)
-    
-    def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'slug': self.slug, 'category': self.category.slug})
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('products:product_detail', kwargs={'slug': self.slug, 'category': self.category.slug})
