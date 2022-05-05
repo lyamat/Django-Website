@@ -35,3 +35,18 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ пользователя {self.user.email}"
+
+
+class OrderItem(models.Model):
+
+    order = models.ForeignKey(Order, verbose_name='Заказ', on_delete=models.CASCADE, related_name='related_order')
+    product = models.ForeignKey('products.Product', verbose_name="Продукт", on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(verbose_name="Количество", default=1)
+    overall_price = models.DecimalField(verbose_name="Цена товара", max_digits=9, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        self.overall_price = self.product.price * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Пункт заказа пользователя {self.order.user.email}"

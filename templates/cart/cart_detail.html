@@ -30,8 +30,12 @@
             {% endfor %}
             <tfoot>
                 <tr>
-                     <td><h5 class="text-white mb-3">Общая цена: {{ cart.overall_price }} BYN</h5></td>
-                     <td><h5 class="text-white mb-3">Количество товаров: {{ cart.products.count }}</h5></td>
+                    <td><h5 class="text-white mb-3">Общая цена: {{ cart.overall_price }} BYN</h5></td>
+                    <td><h5 class="text-white mb-3">Количество товаров: {{ cart.products.count }}</h5></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3"><a href="{% url 'orders:make_order' %}"><button class="btn btn-success">Оформить
+                        заказ</button></a></td>
                 </tr>
             </tfoot>
         </tbody>
