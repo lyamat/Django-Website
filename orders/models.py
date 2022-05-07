@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from products.models import Product
+
 
 class Order(models.Model):
-
     STATUS_CHOICES = (
         ('new_order', 'Новый заказ'),
         ('order_in_process', 'Заказ в обработке'),
@@ -20,7 +21,7 @@ class Order(models.Model):
         ('cash', 'Оплата наличными')
     )
 
-    user = models.ForeignKey('users.User', verbose_name='Покупатель', on_delete=models.CASCADE, related_name='related_orders', null=True, blank=True)
+    user = models.ForeignKey('users.User', verbose_name='Покупатель', on_delete=models.CASCADE, related_name='related_orders', blank=True)
     address = models.CharField(verbose_name='Адрес', max_length=255, blank=True)
     phone = models.CharField(verbose_name='Номер телефона', max_length=17, blank=True)
     first_name = models.CharField(verbose_name="Имя покупателя", max_length=40, blank=True)
@@ -38,9 +39,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-
     order = models.ForeignKey(Order, verbose_name='Заказ', on_delete=models.CASCADE, related_name='related_order')
-    product = models.ForeignKey('products.Product', verbose_name="Продукт", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name="Продукт", on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name="Количество", default=1)
     overall_price = models.DecimalField(verbose_name="Цена товара", max_digits=9, decimal_places=2)
 
