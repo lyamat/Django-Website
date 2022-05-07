@@ -65,6 +65,11 @@
                                     </a>
                                     {% endfor %}
                                 </div>
+                                {% if order.status == 'new_order' %}
+                                <a href="{% url 'orders:cancel_order' id=order.id %}">
+                                    <button class="btn btn-danger mt-3">Отменить заказ</button>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

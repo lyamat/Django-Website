@@ -14,9 +14,10 @@ class HomeView(View):
 
 
 class SearchView(View):
-
-    def get(self, request):
-        products = Product.objects.filter()
+    
+    def post(self, request):
+        search = request.POST['search']
+        products = Product.objects.filter(name__icontains=search)
         return render(request, 'shop/home.html', {'products': products})
     
 
