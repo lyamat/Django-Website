@@ -8,12 +8,18 @@ from .models import *
 from cart.utilities import update_cart
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 
 class MakeOrderView(LoginRequiredMixin, View):
 
     def get(self, request):
         cart_obj = Cart.objects.get(user=request.user)
         form = OrderForm(request.POST)
+        logger.info(f"Loading make order view for user {request.user.email}")
         return render(request, 'orders/make_order.html', {'cart': cart_obj, 'form': form})
 
     def post(self, request):
@@ -28,8 +34,6 @@ class MakeOrderView(LoginRequiredMixin, View):
             order.phone = cleaned_data.get('phone')
             order.first_name = cleaned_data.get('first_name')
             order.last_name = cleaned_data.get('last_name')
-            order.ready_date = cleaned_data.get('ready_date')
-            order.ready_time = cleaned_data.get('ready_time')
             order.status = 'new_order'
             order.payment = cleaned_data.get('payment')
             order.orderType = cleaned_data.get('orderType')
@@ -47,6 +51,7 @@ class MakeOrderView(LoginRequiredMixin, View):
             user_profile = UserProfile.objects.get(user=user)
             user_profile.orders.add(order)
             user_profile.save()
+            logger.info(f"User {user.email} made an order")
             return HttpResponseRedirect('/')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -60,4 +65,5 @@ class CancelOrderView(LoginRequiredMixin, View):
         user_profile = UserProfile.objects.get(user=request.user)
         user_profile.orders.remove(order)
         order.delete()
+        logger.info(f"User {request.user.email} made an order {kwargs.get('id')}")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

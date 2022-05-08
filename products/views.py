@@ -5,11 +5,16 @@ from django.views.generic.detail import View, DetailView
 from .models import Product, Category
 from cart.models import Cart, CartProduct
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class HomeView(View):
 
     def get(self, request):
         products = Product.objects.all()
+        logger.info("Home view loading")
         return render(request, 'shop/home.html', {'products': products})
 
 
@@ -17,6 +22,7 @@ class SearchView(View):
     
     def post(self, request):
         search = request.POST['search']
+        logger.info(f"Searching for {search}")
         products = Product.objects.filter(name__icontains=search)
         return render(request, 'shop/home.html', {'products': products})
     
@@ -28,6 +34,7 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
+        logger.info("Product detail view loading")
         return context
 
 
@@ -40,4 +47,5 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['products'] = context['object'].product_set.all()
+        logger.info("Category detail view loading")
         return context
