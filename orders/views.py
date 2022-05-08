@@ -6,9 +6,10 @@ from .forms import OrderForm
 from users.models import UserProfile
 from .models import *
 from cart.utilities import update_cart
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class MakeOrderView(View):
+class MakeOrderView(LoginRequiredMixin, View):
 
     def get(self, request):
         cart_obj = Cart.objects.get(user=request.user)
@@ -52,11 +53,11 @@ class MakeOrderView(View):
     
     
 
-class CancelOrderView(View):
+class CancelOrderView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         order = Order.objects.get(id=kwargs.get('id'))
         user_profile = UserProfile.objects.get(user=request.user)
         user_profile.orders.remove(order)
         order.delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -6,7 +6,7 @@ from .forms import SignInForm, SignUpForm
 from django.contrib import messages
 from cart.models import Cart
 from .models import UserProfile
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SignInView(View):
 
@@ -24,9 +24,9 @@ class SignInView(View):
                     login(request, user)
                     return HttpResponseRedirect(reverse('products:home'))
                 else:
-                    messages.error(request, 'Аккунт пользователя неактивен')
+                    messages.error(request, 'Аккаунт пользователя неактивен')
             else:
-                messages.error(request, 'Такого пользователя не существует')
+                messages.error(request, 'Неверный email или пароль')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -54,14 +54,14 @@ class SignUpView(View):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class SignOutView(View):
+class SignOutView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         user_profile = UserProfile.objects.get(user=request.user)
