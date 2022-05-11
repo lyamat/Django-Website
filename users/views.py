@@ -7,10 +7,12 @@ from django.contrib import messages
 from cart.models import Cart
 from .models import UserProfile
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 import logging
+import asyncio
+from .async_requests import *
 
 logger = logging.getLogger(__name__)
+
 
 class SignInView(View):
 
@@ -30,7 +32,7 @@ class SignInView(View):
                     logger.info(f"User {cleaned_data['email']} signed in")
                     return HttpResponseRedirect(reverse('products:home'))
                 else:
-                    messages.error(request, 'Аккаунт пользователя неактивен')
+                    messages.error(request, 'Аккунт пользователя неактивен')
             else:
                 messages.error(request, 'Неверный email или пароль')
 
@@ -52,11 +54,9 @@ class SignUpView(View):
             user = authenticate(email=cleaned_data['email'], password=cleaned_data['password1'])
             login(request, user)
             logger.info(f"User {cleaned_data['email']} signed up")
-            Cart.objects.create(user=user)
-            UserProfile.objects.create(user=user, address=cleaned_data.get('address'),
-                                       first_name=cleaned_data.get('first_name'),
-                                       last_name=cleaned_data.get('last_name'),
-                                       phone_number=cleaned_data.get('phone_number'))
+            asyncio.run(create_cart(user))
+            asyncio.run(create_user_profile(user, cleaned_data.get('address'), cleaned_data.get('first_name'),
+                                            cleaned_data.get('last_name'), cleaned_data.get('phone_number')))
             return HttpResponseRedirect(reverse('products:home'))
         messages.error(request, form.errors)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -65,14 +65,14 @@ class SignUpView(View):
 class SignOutView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
-        logout(request)
         logger.info(f"User {request.user.email} logged out")
+        logout(request)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
-        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile = asyncio.run(get_user_profile(request.user))
         logger.info(f"Loading profile for {request.user.email}")
         return render(request, 'profile/user_profile.html', {'user_profile': user_profile})

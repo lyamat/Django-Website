@@ -3,6 +3,37 @@
     min-height: 100%;
 }
 
+.card-img-top {
+    width: 100%;
+    height: 11vw;
+}
+
+main {
+    margin: 0 0;
+    min-height: calc(100vh - 70.43px - 200.41px);
+}
+
+body {
+    background-image: url(/static/img/bg-image.jpg);
+    background-repeat: repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+footer {
+    background: #212529;
+    width: 100%;
+    opacity: .95;
+}
+
+nav {
+    margin-bottom: 0px;
+}
+
 .search-bar {
     margin-right: 1em !important;
     justify-content: center;
@@ -20,8 +51,146 @@
 }
 
 .nav-link {
-	margin-right: 1em !important;
+    margin-right: 1em !important;
 }
+
+.login-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-container h3 {
+    text-align: center;
+    color: #333;
+}
+
+.login-container .btnSubmit {
+    width: 50%;
+    border-radius: 0.5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    background-color: #212529;
+    opacity: 0.8;
+}
+
+.login-container .btnSubmit:hover {
+    background-color: #212578;
+}
+
+
+.login-container .link {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cart-form__body {
+    margin-left: -44px;
+    margin-right: -44px;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    /* opacity: 0.80; */
+}
+
+.cart-container_max-width_xxxxxl {
+    max-width: 1352px;
+}
+
+.cart-message {
+    width: 100%;
+    height: 700px;
+    height: 70vh;
+    display: table;
+    table-layout: fixed;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.cart-message__content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.cart-container {
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.cart-container_max-width_xxlmm {
+    max-width: 530px;
+}
+
+.cart-message__preview {
+    margin-bottom: 16px;
+}
+
+.cart-message__image {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.cart-message__image_volley {
+    width: 500px;
+    height: 460px;
+    border-radius: 50%;
+    background-image: url(/static/img/empty_cart.png);
+}
+
+.cart-message__title {
+    margin: 0 0 18px;
+    padding: 0;
+    border-bottom: 0;
+    color: #000;
+}
+
+.cart-message__title_big {
+    font-size: 36px;
+    line-height: 1.112;
+}
+
+.cart-message__description {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.cart-message__description_primary {
+    color: #000;
+}
+
+.cart-message__description:last-child {
+    margin-bottom: 0;
+}
+
+.cart-message__description_extended-additional,
+.cart-message__description_extended-additional p {
+    margin-bottom: 23px;
+}
+
+.cart-message__description_middle,
+.cart-message__link_middle {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.cart-message__description,
+.cart-message__link,
+.cart-message__title {
+    word-break: break-word;
+    white-space: normal;
+}
+
+
 
 #sidebar {
     opacity: .8;
@@ -69,37 +238,16 @@
     border-radius: 3px;
 }
 
-.login-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-}
-
-.login-container h3 {
-    text-align: center;
-    color: #333;
-}
-
-.login-container .btnSubmit {
-    width: 50%;
-    border-radius: 0.5rem;
-    padding: 1.5%;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    color: #fff;
-    background-color: #212529;
-    opacity: 0.8;
-}
-
-.login-container .btnSubmit:hover {
-    background-color: #212578;
-}
-
-.login-container .link {
+.bg-dark {
+    background: #212529;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0;
     color: white;
-    font-weight: 600;
-    text-decoration: none;
+    opacity: .90;
+}
+
+.bg-dark tr {
+    color: white;
 }

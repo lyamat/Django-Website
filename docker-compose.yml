@@ -1,0 +1,28 @@
+version: "3.7"
+
+volumes:
+  db:
+  volleyby:
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+    - db:/var/lib/mysql
+    ports:
+      - '3306'
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'popk0'
+      MYSQL_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: '123456'
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  volleyby:
+    image: popk0/volleyby:1.0.0
+    volumes:
+      - volleyby:/usr/src/volleyby
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
