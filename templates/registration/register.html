@@ -29,7 +29,7 @@
             <input id="phone_number" name="phone_number" type="text" class="form-control" placeholder="Номер телефона" value=""/>
         </div>
         {% if messages %}
-        <ul class="messages">
+        <ul class="messages bg-dark">
             {% for message in messages %}
             <li>{{ message }}</li>
             {% endfor %}
@@ -39,7 +39,7 @@
             <input type="submit" class="btnSubmit" value="Регистрация"/>
         </div>
         <div class="form-group mt-3 text-center ">
-            <h5 class="text-white mb-3">У вас уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+            <h5 class="text-white mb-3 bg-dark">У вас уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
         </div>
     </form>
 </div>

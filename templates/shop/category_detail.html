@@ -4,7 +4,8 @@
 
 
 {% block content %}
-<div class="container mt-3">
+<br>
+<div class="container">
     <div class="row">
         <div id="sidebar" class="col-sm-3">
             <h3>Категории</h3>
@@ -13,7 +14,7 @@
                     <a href="{% url "products:home" %}">All</a>
                 </li>
                 {% for cat in categories %}
-                <li {% if category.slug==cat.slug %} class="selected" {% endif %}>
+                <li {% if category.slug == cat.slug %} class="selected" {% endif %}>
                     <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
                 </li>
                 {% endfor %}
